@@ -17,37 +17,6 @@ flowchart LR
 
 The final prediction output contains only three columns: the mutation ID (`sample~chrM~position~reference_base~mutant_base`), the predicted class (0/1), and the probability of being a real mutation.
 
-## Directory Layout
-
-```text
-mtDNA-ML-Predictor/
-├── run_pipeline.sh            # One-command master pipeline (recommended entry point)
-├── check_environment.sh       # Environment check (runs automatically before the pipeline)
-├── download_reference.sh      # Re-download the mtDNA reference genome (rCRS)
-├── requirements.txt           # pip dependencies
-├── environment.yml            # conda environment (recommended)
-├── LICENSE
-├── README.md
-├── scripts/
-│   ├── organize_samples.sh          # Organize sample directories / create sample_name.txt
-│   ├── get_feature_pipeline.sh      # Feature extraction (portable version of get_mtDNApipe_feature.sh)
-│   ├── get_output_true_file.R       # Prepare candidate variant sites output_true_<vaf>
-│   ├── get_feature_mtDNApipe.py     # Extract per-sample alignment features (parallel)
-│   ├── get_total_output_features.R  # Aggregate features across all samples
-│   ├── delete_features.py           # Remove the 6 unused features (replaces the old manual step)
-│   ├── add_features.py              # Add 9 annotation features (portable version of 添加10个特征.py)
-│   └── predict.py                   # Train + predict (portable version of 预测集验证.py, trimmed output)
-├── data/
-│   ├── HCC_training_all.txt         # HCC training set (formerly 肝癌训练集-all.txt)
-│   ├── dbSNP.txt
-│   ├── mitomap.txt
-│   ├── mitomap-snp.txt
-│   ├── region.txt
-│   └── mtDNA_region_ge5.txt         # formerly mtDNA区间≥5.txt
-└── reference/
-    └── human_mtDNA.fasta            # rCRS (NC_012920.1), sequence name chrM, 16,569 bp
-```
-
 ## Requirements & Installation
 
 A Linux server is required. The following tools must be available:
@@ -169,21 +138,6 @@ python3 scripts/predict.py \
 | `<output>/feature_add10.txt` | 32-column feature table after adding the 9 annotation features |
 | `<output>/<sample_set>-pred-results.txt` | Final predictions: `id`, `pred_label`, `pred_prob` |
 
-### Feature Columns
-
-Of the 29 features extracted per variant, the following 6 are removed before training (the default columns dropped by `delete_features.py`; customize with `--drop`):
-
-```text
-AF, dp, mosaic_likelihood, het_likelihood, refhom_likelihood, althom_likelihood
-```
-
-The 9 annotation features added by `add_features.py`:
-
-```text
-repeat-region, Population-freq, NAV, type, if_Trans, if_version, region, VAF_mitomap, dbSNP
-```
-
-The final 32 columns exactly match `HCC_training_all.txt` (after removing the `label` column).
 
 
 ## Citation
