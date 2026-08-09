@@ -185,40 +185,6 @@ repeat-region, Population-freq, NAV, type, if_Trans, if_version, region, VAF_mit
 
 The final 32 columns exactly match `HCC_training_all.txt` (after removing the `label` column).
 
-## FAQ
-
-**1. The environment check fails. What should I do?**
-
-Install the missing command or Python packages as indicated: `pip install -r requirements.txt`; install `samtools` and `R` with `apt-get`/`conda`.
-
-**2. The reference index is missing?**
-
-The master pipeline automatically creates it with `samtools faidx reference/human_mtDNA.fasta` (generates the `.fai` file).
-
-**3. My BAM is not named `*.mt.no.softclip.bam`?**
-
-The scripts also try to match `*.mt.bam`. If no BAM is found, check `sample_name.txt` and the BAM file names.
-
-**4. How can I restore or change the deleted features?**
-
-`delete_features.py` accepts a custom `--drop` list, and the annotation features added by `add_features.py` can also be modified as needed.
-
-**5. Mapping to the original scripts**
-
-| Original file | This repository |
-| --- | --- |
-| `get_mtDNApipe_feature.sh` | `scripts/get_feature_pipeline.sh` |
-| `get_output_true_file.R` | `scripts/get_output_true_file.R` |
-| `get_feature_mtDNApipe.py` | `scripts/get_feature_mtDNApipe.py` (reference path parameterized) |
-| `get_total_output_features.R` | `scripts/get_total_output_features.R` |
-| `添加10个特征.py` | `scripts/add_features.py` |
-| `预测集验证.py` | `scripts/predict.py` (only mutation IDs and predictions are output) |
-| `肝癌训练集-all.txt` | `data/HCC_training_all.txt` |
-| `mtDNA区间≥5.txt` | `data/mtDNA_region_ge5.txt` |
-
-**6. Prediction results differ slightly from the old `Figure7-pred-results.txt`?**
-
-The feature-alignment logic is identical, but different xgboost versions introduce small floating-point differences during training. The differences are concentrated on mutations whose predicted probability is close to 0.5 (in this repository's validation: only ~1.3% of the 304k mutations flipped at the 0.5 boundary, with a mean probability difference of ~0.018). To reproduce the old results exactly, install the same xgboost version used in the original analysis.
 
 ## Citation
 
