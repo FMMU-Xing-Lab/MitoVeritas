@@ -143,3 +143,5 @@ python3 scripts/predict.py \
 ## Citation
 
 If you use this pipeline, please cite mtDNApipe and the original paper of this project (to be added once published).
+
+Guo, W., Li, S., Sun, T., Lei, Z., Zhou, K., Zhang, L., Guo, X., Zhou, F., Liu, Y., & Xing, J. (2026). mtDNApipe: A Pioneering Pipeline for High-Sensitivity Detection of Low-Frequency Mitochondrial DNA Mutations. Analytical chemistry.
