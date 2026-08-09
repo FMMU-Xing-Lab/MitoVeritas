@@ -131,7 +131,7 @@ bash run_pipeline.sh \
     -t 8 \                            # number of parallel feature-extraction jobs
     -r /path/to/human_mtDNA.fasta \   # reference genome (default: bundled rCRS)
     -T /path/to/HCC_training_all.txt \# training set (default: bundled data)
-    -s Figure7                        # sample/cohort name (used in the log)
+    -s data1                        # sample/cohort name (used in the log)
 ```
 
 Run the steps individually (equivalent to the master pipeline):
@@ -155,8 +155,8 @@ python3 scripts/add_features.py \
 python3 scripts/predict.py \
     --train data/HCC_training_all.txt \
     --predict outputs/feature_add10.txt \
-    --output outputs/Figure7-pred-results.txt \
-    --sample-name Figure7
+    --output outputs/data1-pred-results.txt \
+    --sample-name data1
 ```
 
 ## Output Files
